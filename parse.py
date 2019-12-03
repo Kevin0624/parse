@@ -15,7 +15,7 @@ Parameters:
 	article -> the string of the article
 Return type: dict()
 '''
-def word_frequency(article):
+def word_frequency(article): # 原本少加 ":"
 	tokens = []
 	punc = [".", ":", ",", "?", "``", "''", "“", "’", "”", "!"]
 	d = dict()
@@ -48,7 +48,7 @@ Parameters:
 	n -> 2 for bigram, 3 for tri-gram, ...
 Return type: dict()
 '''
-def ngram_frequency(article, n)
+def ngram_frequency(article, n):
 	article = article.lower()
 	token_list = nltk.word_tokenize(article)
 	ngram_list = []
@@ -69,6 +69,7 @@ def ngram_frequency(article, n)
 				ngram += (token_list[index+i]+' ')
 		if ngram == "":
 			continue
+		else:
 		ngram_list.append(ngram)
 
 	# calculate the count of ngram without sorting
@@ -82,7 +83,7 @@ def ngram_frequency(article, n)
 	for w in sorted(d, key=d.get, reverse=True):
 		sorted_ngramcount[w] = d[w]
 
-	return d
+	return sorted_ngramcount # 改成 sorted_ngramcount 才會回傳 sorted 的
 
 '''
 Usage: plot the bar graph of word count
@@ -115,6 +116,8 @@ def plot_bar_graph(wordcount, mode):
 	
 	max_percent = max(percentWord.values())
 
+
+
 	for word in list(percentWord.keys())[:rows_to_plot]:
 		if mode == 0:
 			print('{:>15}'.format(word+':'), end=' ')
@@ -123,7 +126,7 @@ def plot_bar_graph(wordcount, mode):
 		elif mode == 2:
 			print('{:>35}'.format(word+':'), end=' ')
 		print('|'+'='*int(bar_max_width*(percentWord[word]/max_percent))+'|',end=' ')
-		print(str(round(percentWord[word],2))+'%', '('+ wordcount[word] +')')
+		print(str(round(percentWord[word],2))+'%', '('+ str(wordcount[word]) +')') # wordcount[word] 要轉型成str
 
 
 '''
@@ -136,7 +139,7 @@ def search_bigram(bigram_count, command):
 	command = command.split()
 
 	if len(command) == 2:
-		if (command[0] = "_" and command[1] == "_") or (command[0] != "_" and command[1] != "_"):
+		if (command[0] == "_" and command[1] == "_") or (command[0] != "_" and command[1] != "_"):
 			print("bad command1...")
 			return
 		else:
@@ -160,7 +163,7 @@ def search_bigram(bigram_count, command):
 command = ""
 filename = "The Scarlet Letter.txt"
 print("reading data..." + " (" + filename + ")")
-f = open(filename)
+f = open(filename, encoding='utf-8')
 article = f.read()
 print("Command :")
 print("(show token/show bigram/show trigram/exit)")
