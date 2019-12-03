@@ -5,6 +5,8 @@
 
 import nltk
 
+print('editted')
+
 '''
 Usage: 
 	1. return the token count of an article 
